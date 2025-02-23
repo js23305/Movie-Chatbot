@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="chat-container">
+    <h1> 🤖 Movie Chatbot </h1>
+    
+    <form method="POST" onsubmit="return sendMessage()">
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type movie genre here..." required>
+            <button type="submit">➤▶ Send</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
