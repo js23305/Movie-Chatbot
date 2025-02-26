@@ -1,4 +1,8 @@
 function sendMessage() {
-    alert("Message received!");
-    return false;
+    let x = document.froms["myForm"]['userInput'].value;
+    if(x="") {
+        alert("Please enter the genre!");
+        return false;
+    }
+
 }
