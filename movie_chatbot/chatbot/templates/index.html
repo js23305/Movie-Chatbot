@@ -2,11 +2,20 @@
 {% block content %}
 <div class="chat-container">
     <h1> 🤖 Movie Chatbot </h1>
+    <p id="chatBot"></p>
     
-    <form name="myForm" onsubmit="return sendMessage()" method="post">
+    <form name="myForm" onsubmit="return sendMessage(event)" method="post">
         <div class="input-container">
             <input type="text" id="userInput" placeholder="Type movie genre here..." required>
             <button type="submit">➤▶ Send</button>
+        </div>
+
+        <div class="form-container">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" required><br>
+
+            <label for="email">Email:</label>
         </div>
     </form>
 </div>
