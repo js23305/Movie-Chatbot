@@ -3,23 +3,22 @@
 <div class="chat-container">
     <h1> 🤖 Movie Chatbot </h1>
     <p id="chatBot"></p>
+
+    <div id="login-form">
+        <h2>Login</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required><br>
+
+        <button onclick="loginUser()">Login</button>
+    </div>
     
     <form name="myForm" onsubmit="return sendMessage(event)" method="post">
         <div class="input-container">
             <input type="text" id="userInput" placeholder="Type movie genre here..." required>
             <button type="submit">➤▶ Send</button>
         </div>
-
-        <div class="form-container">
-
-            <label for="name">Name:</label>
-            <input type="text" id="name" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" required><br>
-
-            <button type="submit">Submit</button>
-        </div>
-    </form>
 </div>
 {% endblock content %}

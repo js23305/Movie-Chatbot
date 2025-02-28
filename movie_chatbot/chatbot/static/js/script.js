@@ -1,3 +1,17 @@
+function loginUser(){
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+
+    if (name === "" || email === "") {  
+        alert("Please enter both name and email!");
+        return;
+    }
+
+    
+}
+
+
+
 function sendMessage(event) {
     event.preventDefault();
     
@@ -42,3 +56,4 @@ function getFilmRecommendationBasedOnGenre(genre){
     }
 
 }
+
