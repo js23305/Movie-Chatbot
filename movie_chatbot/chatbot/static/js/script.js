@@ -1,4 +1,6 @@
-function validateLogin() {
+async function validateLogin(event) {
+    event.preventDefault(); // Prevent from refresh
+
     let username = document.getElementById("username").value.trim();
     let password = document.getElementById("password").value.trim();
     let loginErrorList = document.getElementById("loginErrorList");
@@ -12,22 +14,40 @@ function validateLogin() {
         isValidated = false;
     }
 
-    if (!/^[a-z]+$/.test(username)) {
-        loginErrorList.innerHTML += "<li>Username must contain only lowercase letters.</li>";
-        isValidated = false;
-    }
-
     // Valifdate password (at least 10 characters)
     if (password.length < 10) {
         loginErrorList.innerHTML += "<li> Your password must be at least 10 characters long.</li>";
         isValidated = false;
     }
 
-    // If login is successful
-    document.getElementById("login-form").style.display = "none";
-    document.getElementById("cahtbot-form").style.display = "block";
-    document.getElementById("chatbot").innerHTML = `Welcome, ${username}! Ask me for movie recommendations.`;
+    if (!isValidated) return;
+
+    // Send login request to Django
+    try {
+        let response = await fetch("/login", {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username, password}),
+  });
+
+        let data = await response.json();
+
+        if (response.ok) {
+            alert("Login successful!");
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("cahtbot-form").style.display = "block";
+            document.getElementById("chatbot").innerHTML = `Welcome, ${username}! Ask me for movie recommendations.`;
+
+        } else {
+            loginErrorList.innerHTML += `<li>${data.error}</li>`;
+        }
+    } catch (error) {
+        loginErrorList.innerHTML += `<li>Server error. Try again later</li>`;
+    }
+
 }
+
+document.getElementById("loginButton").addEventListener("click", validateLogin);
 
 
 function sendMessage(event) {
