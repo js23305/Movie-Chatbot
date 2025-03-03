@@ -1,15 +1,33 @@
-function loginUser(){
-    let name = document.getElementById("name").value.trim();
-    let email = document.getElementById("email").value.trim();
+function validateLogin() {
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let loginErrorList = document.getElementById("loginErrorList");
+    loginErrorList.innerHTML = ""; // Clear previous errors
 
-    if (name === "" || email === "") {  
-        alert("Please enter both name and email!");
-        return;
+    let isValidated = true;
+
+    // Validate username (must contain only lowercase letters and be at least 4 characters long)
+    if (username.length < 4) {
+        loginErrorList.innerHTML += "<li>Username must be at least 4 characters long.</li>";
+        isValidated = false;
     }
 
-    
-}
+    if (!/^[a-z]+$/.test(username)) {
+        loginErrorList.innerHTML += "<li>Username must contain only lowercase letters.</li>";
+        isValidated = false;
+    }
 
+    // Valifdate password (at least 10 characters)
+    if (password.length < 10) {
+        loginErrorList.innerHTML += "<li> Your password must be at least 10 characters long.</li>";
+        isValidated = false;
+    }
+
+    // If login is successful
+    document.getElementById("login-form").style.display = "none";
+    document.getElementById("cahtbot-form").style.display = "block";
+    document.getElementById("chatbot").innerHTML = `Welcome, ${username}! Ask me for movie recommendations.`;
+}
 
 
 function sendMessage(event) {

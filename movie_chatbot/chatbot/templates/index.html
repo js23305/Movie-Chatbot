@@ -6,19 +6,28 @@
 
     <div id="login-form">
         <h2>Login</h2>
-        <label for="name">Name:</label>
+        <label for="name">Name</label>
         <input type="text" id="name" required><br>
 
         <label for="email">Email</label>
         <input type="email" id="email" required><br>
 
+        <label for="password">Password</label>
+        <input type="password" id="password" required><br>
+
+        <ul id="loginErrorList"></ul> <!--To display validation errors-->
+
         <button onclick="loginUser()">Login</button>
     </div>
     
-    <form name="myForm" onsubmit="return sendMessage(event)" method="post">
-        <div class="input-container">
-            <input type="text" id="userInput" placeholder="Type movie genre here..." required>
-            <button type="submit">➤▶ Send</button>
-        </div>
+    
+    <div id="chatbot-form" style="display: none;">
+        <form name="myForm" onsubmit="return sendMessage(event)" method="post" style="display: none;">
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type movie genre here..." required>
+                <button type="submit">➤▶ Send</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}
