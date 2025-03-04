@@ -1,53 +1,92 @@
-async function validateLogin(event) {
-    event.preventDefault(); // Prevent from refresh
+function loginUser() {
+    if(validateLoginFormInput()) {
+        var isVlidated = true;
+    
+        // Get Form Inputs
+        var username = $('#name').val();
+        var password = $('#password').val() ;
 
-    let username = document.getElementById("username").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let loginErrorList = document.getElementById("loginErrorList");
-    loginErrorList.innerHTML = ""; // Clear previous errors
+        varloginErrorList = $('#loginErrorList');
+        loginError.html("");
 
-    let isValidated = true;
-
-    // Validate username (must contain only lowercase letters and be at least 4 characters long)
-    if (username.length < 4) {
-        loginErrorList.innerHTML += "<li>Username must be at least 4 characters long.</li>";
-        isValidated = false;
-    }
-
-    // Valifdate password (at least 10 characters)
-    if (password.length < 10) {
-        loginErrorList.innerHTML += "<li> Your password must be at least 10 characters long.</li>";
-        isValidated = false;
-    }
-
-    if (!isValidated) return;
-
-    // Send login request to Django
-    try {
-        let response = await fetch("/login", {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ username, password}),
-  });
-
-        let data = await response.json();
-
-        if (response.ok) {
-            alert("Login successful!");
-            document.getElementById("login-form").style.display = "none";
-            document.getElementById("cahtbot-form").style.display = "block";
-            document.getElementById("chatbot").innerHTML = `Welcome, ${username}! Ask me for movie recommendations.`;
-
-        } else {
-            loginErrorList.innerHTML += `<li>${data.error}</li>`;
+        // Validate username
+        if(username.length < 1) {
+            loginErrorList.append("<li>Enter a name</li>");
+            isVlidated = false;
         }
-    } catch (error) {
-        loginErrorList.innerHTML += `<li>Server error. Try again later</li>`;
+
+        if(!/^[a-z]+$/.test(name)) {
+            loginErrorList.append("<li>Your name should only conatin lowercse letters(a-z)</li");
+            isValidated = false;
+        }
+
+        // Validate password
+        if(password.length < 1) {
+            loginErrorList.append("<li>Enter a password</li>");
+            isVlidated = false;
+        }
+
+        return isVlidated;
     }
 
-}
+     if (validateRegisterFormInput()) {       
+         var isValidated = true;
 
-document.getElementById("loginButton").addEventListener("click", validateLogin);
+         var name = $('#name').val();
+         var email = $('#email').val();
+         var password = $('#password').val();
+         var confirmPassword = $('#confirmPassword').val();
+
+         var registerErrorList = $('#registerErrorList');
+         registerErrorList.html("");
+
+         if (name.length > 30) {
+            registerErrorList.append("<li>Your name should be less than 30 characters</li>");
+            isValidated = false;
+         }
+
+         // Validate name
+         if (name.length < 4) {
+            registerErrorList.append("<li>Your name should be at least 4 characters</li>");
+            isValidated = false;
+         }
+
+         if (!/^[a-z]+$/.test(name)) {
+            registerErrorList.append("<li>Your name should only contain lowercase letters(a-z)</li>");
+            isValidated = false;
+         }
+
+         // Validate email address
+        if (email.length < 1) {
+            registerErrorList.append("<li>Enter an email address</li>");
+            isValidated = false;
+        }
+
+        emailRegx = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
+        if (!emailRegx.test(email) && email.length > 0) {
+            registerErrorList.append("<li>Enter a valid email address</li>");
+            isValidated = false;
+        }
+
+        // Validate password
+        if (password.length < 10) {
+            registerErrorList.append("<li>Enter a password</li>");
+            isValidated = false;
+        }
+
+        // Validate confirm password
+        if (confirmPassword.length < 10) {
+            registerErrorList.append("<li>Enter a password</li>");
+            isValidated = false;
+        }
+
+        return isValidated;
+
+            
+
+    }
+    
+}
 
 
 function sendMessage(event) {
